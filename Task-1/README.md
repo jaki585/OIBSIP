@@ -1,76 +1,40 @@
-Task 1 — Iris Flower Classification
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-This project is part of the Oasis Infobyte Internship Program (OIBSIP).
-The goal of this task is to build a machine learning model that can classify Iris flowers into three species:
+# Make sure you installed seaborn and matplotlib: pip install seaborn matplotlib
 
-Setosa
+# Create a scatter plot of Petal Length vs. Petal Width, colored by Species
+plt.figure(figsize=(8, 6))
+sns.scatterplot(
+    x='PetalLengthCm', 
+    y='PetalWidthCm', 
+    hue='Species', 
+    data=df, 
+    palette='viridis',
+    s=70 # size of dots
+)
+plt.title('Iris Species Classification by Petal Dimensions')
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.legend(title='Species')
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.show() 
+# ```
 
-Versicolor
+### 2. Trying Another Model
 
-Virginica
+The KNN model worked well, but data scientists often test multiple models. A **Decision Tree Classifier** is another simple and interpretable model.
 
-based on their sepal and petal measurements.
+```python
+from sklearn.tree import DecisionTreeClassifier
 
-📌 Project Overview
+# Initialize and train the Decision Tree Model
+dt_model = DecisionTreeClassifier(random_state=42)
+dt_model.fit(X_train, y_train)
 
-The Iris dataset is one of the most popular beginner-friendly datasets in machine learning.
-In this project, I performed:
+# Make predictions
+dt_pred = dt_model.predict(X_test)
 
-Data loading and preprocessing
-
-Exploratory data analysis (EDA)
-
-Data visualization
-
-Model training
-
-Model evaluation
-
-Prediction on sample input
-
-This task helped me understand the complete ML workflow from start to finish.
-
-📊 Dataset Information
-
-The Iris dataset contains:
-
-150 rows
-
-4 input features:
-
-Sepal Length
-
-Sepal Width
-
-Petal Length
-
-Petal Width
-
-3 output classes (species)
-
-🧠 Machine Learning Algorithms Used
-
-I trained and compared multiple models:
-
-Logistic Regression
-
-Decision Tree Classifier
-
-Random Forest Classifier
-
-Support Vector Machine (SVM)
-
-Finally, I selected the best-performing model based on accuracy.
-
-📈 Model Accuracy
-
-The model achieved high accuracy during testing, showing strong performance on unseen data.
-
-
-This task strengthened my understanding of machine learning basics and model-building techniques.
-It also helped me practice data analysis, visualization, and classification algorithms.
-
-👨‍💻 Intern
-
-Jaki Shaikh
-OIBSIP Intern
+# Evaluate
+print("\n--- Decision Tree Classification Report ---")
+print(classification_report(y_test, dt_pred, target_names=le.classes_))
